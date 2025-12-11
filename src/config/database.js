@@ -9,7 +9,7 @@ const sequelize = new Sequelize(
     process.env.DB_PASS,
     {
         host: process.env.DB_HOST,
-        dialict:"postgres",
+        dialect:"postgres",
     }
 );
 export default sequelize;
