@@ -1,6 +1,13 @@
 import dotenv from 'dotenv';
 import app from './src/app.js';
 import sequelize from './src/config/database.js';
+import "./src/models/Artist.js";
+import "./src/models/Booking.js";
+import "./src/models/EventInfo.js";
+import "./src/models/EventInfo.js";
+import "./src/models/associations.js";
+ 
+
 
 
 dotenv.config();
