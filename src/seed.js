@@ -25,19 +25,19 @@ async function seedDatabase() {
       {
         name: "Maâlem Hamid El Kasri",
         bio: "Icône de la musique Gnawa avec une carrière riche et internationale.",
-        photo_url: "https://example.com/kasri.jpg",
+        photo_url: "https://ik.imagekit.io/9yn2suj2g/guinea%20mo.jpg",
         performance_time: "21:00",
       },
       {
         name: "Maâlem Hassan Boussou",
         bio: "Fils du légendaire Hmida Boussou, mélange tradition et modernité.",
-        photo_url: "https://example.com/boussou.jpg",
+        photo_url: "https://ik.imagekit.io/9yn2suj2g/Hamid-Kasri.jpg",
         performance_time: "22:00",
       },
       {
         name: "Maâlem Abderrahim Akka",
         bio: "Artiste Gnawa marocain reconnu pour أسلوبه الروحي القوي.",
-        photo_url: "https://example.com/akka.jpg",
+        photo_url: "https://ik.imagekit.io/9yn2suj2g/91103440-64106336.jpg",
         performance_time: "23:00",
       },
     ]);

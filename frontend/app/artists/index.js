@@ -4,31 +4,57 @@ import {
   TextInput,
   Image,
   FlatList,
-  TouchableOpacity,
   StyleSheet,
 } from "react-native";
 import { Link } from "expo-router";
-
-const mockArtists = [
-  { id: 1, name: "Hamid El Kasri", img: "https://i.imgur.com/Jf0p3Qm.png" },
-  { id: 2, name: "Hassan Boussou", img: "https://i.imgur.com/Jf0p3Qm.png" },
-  { id: 3, name: "Abderrahim Akka", img: "https://i.imgur.com/Jf0p3Qm.png" },
-];
+import { useArtists } from "../../services/artistService";
+import { MotiPressable } from "moti/interactions";
 
 export default function ArtistsScreen() {
+  const { data, isLoading } = useArtists();
+
+  if (isLoading) return <Text style={{ marginTop: 50 }}>Loading...</Text>;
+
   return (
     <View style={styles.container}>
-      <TextInput placeholder="Search..." style={styles.searchInput} />
+      <TextInput
+        placeholder="Search artist..."
+        placeholderTextColor="#999"
+        style={styles.searchInput}
+      />
 
       <FlatList
-        data={mockArtists}
+        data={data}
         keyExtractor={(item) => item.id.toString()}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 40 }}
         renderItem={({ item }) => (
           <Link href={`/artists/${item.id}`} asChild>
-            <TouchableOpacity style={styles.card}>
-              <Image source={{ uri: item.img }} style={styles.avatar} />
-              <Text style={styles.name}>{item.name}</Text>
-            </TouchableOpacity>
+            <MotiPressable
+              animate={({ pressed }) => {
+                "worklet";
+                return {
+                  scale: pressed ? 0.97 : 1,
+                  opacity: pressed ? 0.85 : 1,
+                  shadowRadius: pressed ? 2 : 6,
+                };
+              }}
+              transition={{
+                type: "spring",
+                damping: 14,
+                stiffness: 180,
+              }}
+              style={styles.card}
+            >
+              <Image source={{ uri: item.photo_url }} style={styles.avatar} />
+
+              <View style={{ flex: 1 }}>
+                <Text style={styles.name}>{item.name}</Text>
+                <Text style={styles.subtitle}>
+                  Performance: {item.performance_time}
+                </Text>
+              </View>
+            </MotiPressable>
           </Link>
         )}
       />
@@ -38,34 +64,50 @@ export default function ArtistsScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 50,
+    paddingTop: 50,
+    paddingHorizontal: 20,
     backgroundColor: "#FFF",
     flex: 1,
-    padding: 20,
   },
+
   searchInput: {
-    backgroundColor: "#f1f1f1",
+    backgroundColor: "#F5F6FA",
     padding: 15,
     borderRadius: 15,
     marginBottom: 20,
+    fontSize: 16,
   },
+
   card: {
     backgroundColor: "#4B56E8",
     padding: 15,
-    height: 130,
+    height: 120,
     marginBottom: 15,
-    borderRadius: 15,
+    borderRadius: 20,
     flexDirection: "row",
     alignItems: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
+    elevation: 5,
   },
+
   avatar: {
-    width: 100,
-    height: 100,
+    width: 90,
+    height: 90,
     borderRadius: 15,
     marginRight: 15,
   },
+
   name: {
     color: "#FFF",
-    fontSize: 18,
+    fontSize: 20,
+    fontWeight: "600",
+    marginBottom: 6,
+  },
+
+  subtitle: {
+    color: "#E3E4FF",
+    fontSize: 14,
   },
 });
